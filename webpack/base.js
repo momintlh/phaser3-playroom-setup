@@ -9,6 +9,19 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.mjs$/,
+        include: [
+          path.join(__dirname, '../node_modules/playroomkit'),
+        ],
+        type: 'javascript/auto',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {

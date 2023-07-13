@@ -1,22 +1,26 @@
 import Phaser from 'phaser';
 import logoImg from './assets/logo.png';
+import {isStreamScreen, onPlayerJoin, insertCoin, isHost, myPlayer } from "playroomkit";
 
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
+if (isStreamScreen()) {
+    // Show the Stream screen
+  } else {
+    // Show the Controller screen
+  }
+
+class MyGame extends Phaser.Scene {
+    constructor() {
         super();
     }
 
-    preload ()
-    {
+    preload() {
         this.load.image('logo', logoImg);
     }
-      
-    create ()
-    {
+
+    create() {
+
         const logo = this.add.image(400, 150, 'logo');
-      
+
         this.tweens.add({
             targets: logo,
             y: 450,
@@ -26,7 +30,9 @@ class MyGame extends Phaser.Scene
             loop: -1
         });
     }
+
 }
+
 
 const config = {
     type: Phaser.AUTO,
@@ -36,4 +42,8 @@ const config = {
     scene: MyGame
 };
 
-const game = new Phaser.Game(config);
+
+
+insertCoin({streamMode: true}).then(() => {
+    const game = new Phaser.Game(config);
+});
